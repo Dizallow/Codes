@@ -1,0 +1,96 @@
+def menu():
+    print('''
+------------------------------
+| \33[1;36m       MENU: Jogador\33[m       |
+|----------------------------|
+| Selecione \33[1;45m[1]\33[m para \33[1;35mPapel\33[m   |
+| Selecione \33[1;44m[2]\33[m para \33[1;34mPedra\33[m   |
+| Selecione \33[1;41m[3]\33[m para \33[1;31mTesoura\33[m |
+------------------------------''')
+
+
+def resultado (jogador, computador):           #O append de 0 significa que esse valor representará o empate.                     #O append de 1 significa que esse valor representará a vitória do jogador.
+    if jogador == computador:                  #O append de 2 significa que esse valor representará a vitória do computador.
+        print('\33[1;32mVocê e eu jogamos iguais. Houve um empate!\33[m')
+        vetor_resultado.append(0)
+    elif jogador == 1 and computador == 2:
+        print('\33[1;32mSua escolha:\33[m \033[1;35mpapel.\33[m ')
+        print('\33[1;32mVocê ganhou! Eu escolhi\33[m \33[1;34mpedra!\33[m')
+        vetor_resultado.append(1)
+    elif jogador == 2 and computador == 1:
+        print('\33[1;32mSua escolha:\33[m \033[1;34mpedra.\33[m')
+        print('\33[1;32mEu ganhei! Eu escolhi\33[m \33[1;35mpapel!\33[m')
+        vetor_resultado.append(2)
+    elif jogador == 1 and computador == 3:
+        print('\33[1;32mSua escolha:\33[m \033[1;35mpapel.\33[m')
+        print('\33[1;32mEu ganhei! Eu escolhi\33[m \33[1;31mtesoura!\33[m ')
+        vetor_resultado.append(2)
+    elif jogador == 3 and computador == 1:
+        print('\33[1;32mSua escolha:\33[m \033[1;31mtesoura.\33[m')
+        print('\33[1;32mVocê ganhou! Eu escolhi\33[m \33[1;35mpapel!\33[m')
+        vetor_resultado.append(1)
+    elif jogador == 2 and computador == 3:
+        print('\33[1;32mSua escolha:\33[m \033[1;34mpedra.\33[m ')
+        print('\33[1;32mVocê ganhou! Eu escolhi\33[m \33[1;31mtesoura!\33[m')
+        vetor_resultado.append(1)
+    elif jogador == 3 and computador == 2:
+        print('\33[1;32mSua escolha:\33[m \33[1;31mtesoura.\33[m')
+        print('\33[1;32mEu ganhei! Eu escolhi\33[m \33[1;34mpedra!\33[m')
+        vetor_resultado.append(2)
+
+
+def porcentagem(vetor_resultado):
+    x  = 0                         #x é uma variável que vai contar o número de vezes que o velor 1 aparece no vetor_resultado.
+    y = 0                          #y é uma variável que vai contar o número de vezes que o velor 0 aparece no vetor_resultado.
+    for v in vetor_resultado:      #Logo, x simboliza o número de vitórias do jogador e y o número de empates.
+        if v == 1:
+            x = x + 1
+        elif v == 0:
+            y = y + 1
+    porcentagem_vitorias = x * 100 / len(vetor_resultado)  # Expressão matemática que fará o cálculo da porcentagem de wins e draws, respectivamente.
+    porcentagem_empate = y * 100 / len(vetor_resultado)  # len(vetor_resultado) representa o número de entradas no vetor_resultado.
+    print('\33[1;32mTotal de partidas {}.\33[m'.format(len(vetor_resultado))) # <---- Mostrará o número de partidas jogadas.
+    print('\33[1;32mA sua porcentagem de vitorias foi de {:.2f}%.\033[m' .format(porcentagem_vitorias))
+    print('\33[1;32mEnquanto sua porcentagem de empates foi de {:.2f}%.\33[m' .format(porcentagem_empate))
+
+
+#Programa Primário
+print('''
+                                                  ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+                                                  ▬                                    ▬
+                                                  ▬       PEDRA, PAPEL E TESOURA       ▬
+                                                  ▬                                    ▬
+                                                  ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+\33[1;32m- Você sabe jogar jokempô ou simplesmente pedra, papel e tesoura?\33[m
+- \33[1;32mO jogo consiste em escolher uma das três opções abaixo:\33[m
+\33[1;45m[1]\33[m \33[1;35mPapel\33[m
+\33[1;44m[2]\33[m \33[1;34mPedra\33[m
+\33[1;41m[3]\33[m \33[1;31mTesoura\33[m
+- \33[1;32mAo escolher uma delas o seu adversário fará o mesmo, as 4 possibilidades possíveis dentro desse jogo são mostradas abaixo:\33[m
+■ \33[1;35mPapel\33[m \33[1;32mvence\33[m \33[1;34mPedra\33[m
+■ \33[1;31mTesoura\33[m \33[1;32mvence\33[m \33[1;35mPapel\33[m
+■ \33[1;34mPedra\33[m \33[1;32mvence\33[m \33[1;31mTesoura\33[m
+■ \33[1;32mDraw(empate) quando ambos jogadores escolhem a mesma opção\33[m
+- \33[1;32mDito isso acredito que esteja apto a disputar comigo. Sim, serei o seu adversário. Quantas vezes um mero mortal será capaz de me vencer?\33[m''')
+print('')
+print('►\33[1;31mLembre-se: caso queira sair, basta escolher qualquer número inteiro que não esteja entre os valores abaixo.\33[m')
+
+menu()
+vetor_resultado = []
+from random import randint
+jogador = int(input('\33[1;7mQual é a sua escolha?\33[m '))
+while True:
+        if jogador in (1, 2, 3):
+            computador = randint(1, 3)
+            resultado(jogador, computador)
+            jogador = int(input('\33[7;mQual é a sua escolha\33[m '))
+        else:
+            porcentagem(vetor_resultado)
+            break
+
+
+
+
+
+
+
